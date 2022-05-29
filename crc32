@@ -1,0 +1,7 @@
+#!/bin/bash
+# Davi Poyastro - 2020
+
+# ------------------------------------ MAIN ------------------------------------
+
+python -c "import zlib;print(hex(0xFFFFFFFF & zlib.crc32(open('$1', 'rb').read())))"
+

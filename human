@@ -1,0 +1,15 @@
+#!/bin/bash
+# Davi Poyastro - 2020
+
+# ------------------------------------ MAIN ------------------------------------
+
+if [ -t 0 ] ; then
+    # Arguments only
+    numfmt --to=iec "$1"
+else
+    # Read from stdin
+    while read n ; do
+        numfmt --to=iec "$n"
+    done
+fi
+

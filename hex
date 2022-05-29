@@ -1,0 +1,21 @@
+#!/bin/bash
+# Davi Poyastro - 2020
+
+# ------------------------------------ MAIN ------------------------------------
+
+# Read from stdin
+if [ "$#" -eq "0" ] &&  ! [ -t 0 ] ; then
+    while read l ; do "$0" "$l" ; done
+    exit
+fi
+
+if [ "$1" -lt "256" ] 2>/dev/null ; then
+    printf "0x%02x\n" "$1"
+elif [ "$1" -lt "65536" ] 2>/dev/null ; then
+    printf "0x%04x\n" "$1"
+elif [ "$1" -lt "4294967296" ] 2>/dev/null ; then
+    printf "0x%08x\n" "$1"
+else
+    printf "0x%016x\n" "$1"
+fi
+

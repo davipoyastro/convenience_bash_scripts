@@ -1,0 +1,8 @@
+#!/bin/bash
+# Davi Poyastro - 2020
+
+# ------------------------------------ MAIN ------------------------------------
+
+# 1KHz 100ms 50%
+seq 100 | while read n ; do printf "\x80\x96\xa0\x96\x80\x6a\x60\x6a" ; done | aplay &>/dev/null
+

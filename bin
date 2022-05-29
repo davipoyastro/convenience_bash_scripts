@@ -1,0 +1,82 @@
+#!/bin/bash
+# Davi Poyastro - 2020
+
+# ---------------------------------- FUNCTIONS ---------------------------------
+
+function nibble2bin()
+{
+    if [ "$1" == "0" ] ; then
+        printf "0000"
+    elif [ "$1" == "1" ] ; then
+        printf "0001"
+    elif [ "$1" == "2" ] ; then
+        printf "0010"
+    elif [ "$1" == "3" ] ; then
+        printf "0011"
+    elif [ "$1" == "4" ] ; then
+        printf "0100"
+    elif [ "$1" == "5" ] ; then
+        printf "0101"
+    elif [ "$1" == "6" ] ; then
+        printf "0110"
+    elif [ "$1" == "7" ] ; then
+        printf "0111"
+    elif [ "$1" == "8" ] ; then
+        printf "1000"
+    elif [ "$1" == "9" ] ; then
+        printf "1001"
+    elif [ "$1" == "a" ] ; then
+        printf "1010"
+    elif [ "$1" == "b" ] ; then
+        printf "1011"
+    elif [ "$1" == "c" ] ; then
+        printf "1100"
+    elif [ "$1" == "d" ] ; then
+        printf "1101"
+    elif [ "$1" == "e" ] ; then
+        printf "1110"
+    elif [ "$1" == "f" ] ; then
+        printf "1111"
+    fi
+}
+
+function print_dec2hex()
+{
+    if [ "$1" -lt "256" ] ; then
+        printf "%02x" $1
+    elif [ "$1" -lt "65536" ] ; then
+        printf "%04x" $1
+    elif [ "$1" -lt "4294967296" ] ; then
+        printf "%08x" $1
+    else
+        printf "%016x" $1
+    fi
+}
+
+function print_dec2bin()
+{
+    print_dec2hex $1 |
+    grep -o "." |
+    while read n ; do
+        nibble2bin $n
+    done
+    echo
+}
+
+# ------------------------------------ MAIN ------------------------------------
+
+# Read from stdin
+if [ "$#" -eq "0" ] &&  ! [ -t 0 ] ; then
+    while read l ; do "$0" "$l" ; done
+    exit
+fi
+
+
+if echo "$1" | egrep -q -i "0x" ; then
+    # HEX
+    print_dec2bin "$(calc -p "$1")"
+else
+    # DEC
+    print_dec2bin "$1"
+fi
+
